@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: :tensorflow-lite-0.0.0-nightly:@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/476bf2f702157e189101b0dcd54c2b65/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/476bf2f702157e189101b0dcd54c2b65/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
