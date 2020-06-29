@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.lib.Tuner;
 
-@TeleOp
+@TeleOp(name = "CheeseTeleop", group = "drive")
 public class CheeseTeleop extends OpMode {
 
 

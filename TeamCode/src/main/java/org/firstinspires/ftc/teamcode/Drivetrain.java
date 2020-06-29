@@ -25,11 +25,20 @@ public class Drivetrain {
         TICKS_PER_INCH = TICKS_PER_REV * GEAR_RATIO / WHEEL_CIRCUMFERENCE;
     }
 
-    //call this every loop to make sure the power sent to the motors is updated
-    //also does a last clip to make sure power never exceeds 1
     public void setPowers(double leftPower, double rightPower) {
+        leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         leftMotor.setPower(Range.clip(leftPower, -1, 1));
         rightMotor.setPower(Range.clip(rightPower, -1, 1));
+    }
+
+    public void setVelocities(double leftVelo, double rightVelo){
+        leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        leftMotor.setPower(Range.clip(leftVelo, -1, 1)); //as a proportion of max speed
+        rightMotor.setPower(Range.clip(rightVelo, -1, 1));
     }
 
     public double getLeftDistance(){
