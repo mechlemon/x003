@@ -24,7 +24,7 @@ public class CheeseTeleop extends OpMode {
         tuner.tune();
 
         double forward = gamepad1.left_stick_y;
-        double turn = gamepad1.right_stick_x * tuner.get("turnCoeff");
+        double turn = gamepad1.left_stick_x * tuner.get("turnCoeff");
 
         double[] powers = cheesyDrive(forward, turn, gamepad1.right_stick_button, gamepad1.left_stick_button);
 
