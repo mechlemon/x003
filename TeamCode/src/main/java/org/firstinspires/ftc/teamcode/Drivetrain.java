@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.util.Range;
 
 public class Drivetrain {
 
-    private final double WHEEL_CIRCUMFERENCE = 2.5 * Math.PI; //inches
+    private final double WHEEL_CIRCUMFERENCE = 3 * Math.PI; //inches
     private final double GEAR_RATIO = 26/22.0;
     private final double TICKS_PER_REV = 383.6; //yellowjacket 435rpm, counts per rev of motor shaft
 
@@ -19,8 +19,8 @@ public class Drivetrain {
         this.leftMotor = leftMotor;
         this.rightMotor = rightMotor;
 
-        leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         TICKS_PER_INCH = TICKS_PER_REV * GEAR_RATIO / WHEEL_CIRCUMFERENCE;
     }
@@ -42,11 +42,11 @@ public class Drivetrain {
     }
 
     public double getLeftDistance(){
-        return (leftMotor.getCurrentPosition() - leftZero) * TICKS_PER_INCH;
+        return (leftMotor.getCurrentPosition() - leftZero) / TICKS_PER_INCH;
     }
 
     public double getRightDistance(){
-        return (rightMotor.getCurrentPosition() - rightZero) * TICKS_PER_INCH;
+        return (rightMotor.getCurrentPosition() - rightZero) / TICKS_PER_INCH;
     }
 
     public void resetEncoders(){

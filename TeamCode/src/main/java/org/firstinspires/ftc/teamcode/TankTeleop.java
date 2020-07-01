@@ -14,10 +14,10 @@ public class TankTeleop extends OpMode {
     }
 
     public void loop(){
-        hardware.drivetrain.setPowers(gamepad1.left_stick_y, gamepad1.right_stick_y);
+        hardware.drivetrain.setPowers(-gamepad1.left_stick_y, -gamepad1.right_stick_y);
 
-        telemetry.addData("left stick y", gamepad1.left_stick_y);
-        telemetry.addData("right stick y", gamepad1.right_stick_y);
+        telemetry.addData("left stick y", -gamepad1.left_stick_y);
+        telemetry.addData("right stick y", -gamepad1.right_stick_y);
         telemetry.addData("left inches", hardware.drivetrain.getLeftDistance());
         telemetry.addData("right inches", hardware.drivetrain.getRightDistance());
         telemetry.update();

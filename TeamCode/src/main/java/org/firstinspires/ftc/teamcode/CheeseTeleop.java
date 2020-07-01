@@ -12,8 +12,8 @@ public class CheeseTeleop extends OpMode {
     private Hardware hardware;
     private Tuner tuner;
 
-    private String[] titles = new String[] {"turnCoeff"};
-    private double[] values = new double[] {     0.7   };
+    private String[] titles = new String[] {"turnCoeff", "quickturn cutoff", "singlestick", "invert back"};
+    private double[] values = new double[] {     0.7   ,         3         ,       1      ,       1      };
 
     public void init(){
         hardware = new Hardware(hardwareMap, telemetry, false, false);
@@ -23,10 +23,22 @@ public class CheeseTeleop extends OpMode {
     public void loop(){
         tuner.tune();
 
-        double forward = gamepad1.left_stick_y;
-        double turn = gamepad1.left_stick_x * tuner.get("turnCoeff");
+        double forward = -gamepad1.left_stick_y;
 
-        double[] powers = cheesyDrive(forward, turn, gamepad1.right_stick_button, gamepad1.left_stick_button);
+        double turn;
+        if(tuner.get("singlestick") > 0){
+            turn = -gamepad1.left_stick_x * tuner.get("turnCoeff");
+        }else{
+            turn = -gamepad1.right_stick_x * tuner.get("turnCoeff");
+        }
+
+        boolean isQuickTurn = Math.abs(turn/forward) > tuner.get("quickturn cutoff");
+
+        if(!isQuickTurn && tuner.get("invert back") > 0 && forward < 0){
+            turn = -turn;
+        }
+
+        double[] powers = cheesyDrive(forward, turn, isQuickTurn, false);
 
         hardware.drivetrain.setPowers(powers[0], powers[1]);
 
