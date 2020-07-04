@@ -7,7 +7,7 @@ package org.firstinspires.ftc.teamcode.lib;
  * Call checkToggleStatus once every loop to determine whether a full button press has
  * occurred or not.
  */
-final class ButtonPress
+public final class ButtonPress
 {
     /**
      * Holds all the states that a toggle can be in. When pressing a button, there are 3 states:
@@ -19,7 +19,7 @@ final class ButtonPress
      * flip a boolean, then you'll flip once for every time the button is held and the
      * loop iterates.
      */
-    enum Status
+    public enum Status
     {
         NOT_BEGUN ,
         IN_PROGRESS ,

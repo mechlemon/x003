@@ -24,13 +24,13 @@ public class AngularRomegaTeleop extends OpMode {
     public void loop(){
         tuner.tune();
 
-        double linVelo = -gamepad1.left_stick_y * tuner.get("linCoeff");
+        double linVelo = -gamepad1.left_stick_y;
 
         double turnStick;
         if(tuner.get("singlestick") > 0){
-            turnStick = -gamepad1.left_stick_x * tuner.get("angCoeff");
+            turnStick = -gamepad1.left_stick_x;
         }else{
-            turnStick = -gamepad1.right_stick_x * tuner.get("angCoeff");
+            turnStick = -gamepad1.right_stick_x;
         }
 
         double angVelo;
@@ -41,8 +41,8 @@ public class AngularRomegaTeleop extends OpMode {
         }
 
 
-        double leftVelo =  linVelo + angVelo * tuner.get("halfDistBetWheels");
-        double rightVelo =  linVelo - angVelo * tuner.get("halfDistBetWheels");
+        double leftVelo =  linVelo * tuner.get("linCoeff") + angVelo * tuner.get("halfDistBetWheels") * tuner.get("angCoeff");
+        double rightVelo =  linVelo  * tuner.get("linCoeff") - angVelo * tuner.get("halfDistBetWheels") * tuner.get("angCoeff");
 
         double maxVelo = Math.max(leftVelo, rightVelo); //to keep the ratio between L and R velo
         if(maxVelo > 1){

@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.lib.ButtonPress;
 import org.firstinspires.ftc.teamcode.lib.Tuner;
 
 @TeleOp(name = "CheeseTeleop", group = "drive")
@@ -12,8 +13,8 @@ public class CheeseTeleop extends OpMode {
     private Hardware hardware;
     private Tuner tuner;
 
-    private String[] titles = new String[] {"turnCoeff", "quickturn cutoff", "singlestick", "invert back"};
-    private double[] values = new double[] {     0.7   ,         3         ,       1      ,       1      };
+    private String[] titles = new String[] {"lowScalar", "turnCoeff", "quickturn cutoff", "singlestick", "invert back"};
+    private double[] values = new double[] {    0.5    ,     0.58   ,         10        ,       1      ,       1      };
 
     public void init(){
         hardware = new Hardware(hardwareMap, telemetry, false, false);
@@ -38,14 +39,20 @@ public class CheeseTeleop extends OpMode {
             turn = -turn;
         }
 
+        if(gamepad1.right_bumper){
+            forward *= tuner.get("lowScalar");
+//            turn *= tuner.get("lowScalar");
+        }
+
         double[] powers = cheesyDrive(forward, turn, isQuickTurn, false);
 
         hardware.drivetrain.setPowers(powers[0], powers[1]);
 
         telemetry.addData("forward", forward);
         telemetry.addData("turn", turn);
-        telemetry.addData("left inches", hardware.drivetrain.getLeftDistance());
-        telemetry.addData("right inches", hardware.drivetrain.getRightDistance());
+        telemetry.addData("leftPower", powers[0]);
+        telemetry.addData("rightPower", powers[1]);
+        telemetry.addData("isQuickTurn", isQuickTurn);
         telemetry.update();
     }
 
