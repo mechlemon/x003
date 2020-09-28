@@ -38,7 +38,7 @@ ADDED from /Users/chris/FTC/x003/FtcRobotController/src/main/AndroidManifest.xml
 	android:allowBackup
 		ADDED from /Users/chris/FTC/x003/FtcRobotController/src/main/AndroidManifest.xml:11:5-31
 	android:theme
-		ADDED from /Users/chris/FTC/x003/FtcRobotController/src/main/AndroidManifest.xml:15:5-41
+		ADDED from /Users/chris/FTC/x003/FtcRobotController/src/main/AndroidManifest.xml:15:5-44
 meta-data#org.firstinspires.latestSupportedControlHubVersion
 ADDED from /Users/chris/FTC/x003/FtcRobotController/src/main/AndroidManifest.xml:18:5-20:29
 	android:value

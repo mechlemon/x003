@@ -1,6 +1,7 @@
 <component name="libraryTable">
   <library name="Gradle: :Blocks-release:@aar">
     <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/88bd505ac1ac4f4832c22371d64297bd/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/88bd505ac1ac4f4832c22371d64297bd/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/88bd505ac1ac4f4832c22371d64297bd/res" />
     </CLASSES>

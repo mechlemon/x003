@@ -64,7 +64,7 @@ MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/chris/.gradl
 	android:allowBackup
 		ADDED from [:FtcRobotController] /Users/chris/FTC/x003/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:9-35
 	android:theme
-		ADDED from [:FtcRobotController] /Users/chris/FTC/x003/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:9-45
+		ADDED from [:FtcRobotController] /Users/chris/FTC/x003/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:9-48
 	android:name
 		ADDED from [:RobotCore-release:] /Users/chris/.gradle/caches/transforms-2/files-2.1/ca2044a81efa32ebf9a5e0facdcf56c1/AndroidManifest.xml:86:18-97
 uses-sdk
