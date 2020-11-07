@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.lib.Tuner;
 
@@ -55,6 +56,9 @@ public class CheeseTeleop extends OpMode {
         double[] powers = cheesyDrive(forward, turn, isQuickTurn, false);
 
         hardware.drivetrain.setPowers(powers[0], powers[1]);
+
+        hardware.shooter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        hardware.shooter.setVelocity(gamepad2.right_trigger);
 
         telemetry.addData("forward", forward);
         telemetry.addData("turn", turn);

@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp(name = "ThreadTest", group = "test")
 
@@ -12,44 +11,59 @@ public class ThreadTest extends OpMode {
 
     ModuleThread motorThread;
 
+    DcMotorEx motor_main;
+
     int count = 0;
-
     double power = 0;
+    double speed = 0.9;
 
-    DcMotor motor_main;
-    double lastposition_main = 0;
-    int movements_main = 0;
+    double lastPos_main = 0;
+    double lastVelo_main = 0;
+    long lasttime;
 
+    boolean done = false;
 
     @Override
     public void init() {
-        motorThread = new ModuleThread("motorThread");
+//        motorThread = new ModuleThread("motorThread");
+        motor_main = hardwareMap.get(DcMotorEx.class, "1-2");
 
-        motor_main = hardwareMap.get(DcMotor.class, "1-1");
     }
 
     @Override
     public void loop() {
-        count++;
-        power = 1;
+//        power = -gamepad1.left_stick_y;
+        double dt = System.nanoTime() - lasttime;
+        lasttime = System.nanoTime();
 
-        motor_main.setPower(power);
-        if(motor_main.getCurrentPosition() != lastposition_main){
-            movements_main++;
+        double velo = (motor_main.getCurrentPosition() - lastPos_main) / (dt * 1e-9);
+        lastPos_main = motor_main.getCurrentPosition();
+
+        motor_main.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motor_main.setPower(speed);
+
+        if(Math.abs(velo - lastVelo_main) < 100 && velo > 100){
+//            speed = 0;
+            done = true;
+        }else{
+            if(true){
+                count++;
+            }
         }
+        lastVelo_main = velo;
 
-        telemetry.addData( "movements thread (fullpower)", motorThread.threadTasks.movements);
-        telemetry.addData( "movements main   (fullpower)", movements_main);
+//        telemetry.addData( "movements thread (fullpower)", motorThread.threadTasks.movements);
         telemetry.addData( "count", count);
+        telemetry.addData( "velo", velo);
+        telemetry.addData( "velo - lastVelo_main", velo - lastVelo_main);
         telemetry.update();
+
     }
 
     @Override
     public void stop(){
-        power = 0;
-        motor_main.setPower(power);
+//        motorThread.stop();
     }
-
 
     public class ModuleThread implements Runnable{
 
@@ -68,23 +82,17 @@ public class ThreadTest extends OpMode {
             threadTasks.initialize();
             while(!exit) {
                 threadTasks.execute();
-
-//                try{
-//                    Thread.sleep(20);
-//                }catch(InterruptedException e){
-//                    e.printStackTrace();
-//                }
-
             }
         }
 
         public void stop(){
+            threadTasks.stop();
             exit = true;
         }
     }
 
     class ThreadTasks {
-        double lastPosition = 0;
+        int lastPosition = 0;
         String name;
 
         int movements = 0;
@@ -94,8 +102,7 @@ public class ThreadTest extends OpMode {
             name = name_input;
         }
         void initialize(){
-            time = System.currentTimeMillis();
-            motor = hardwareMap.get(DcMotor.class, "1-0");
+            motor = hardwareMap.get(DcMotor.class, "1-3");
         }
 
         void execute(){
@@ -104,6 +111,10 @@ public class ThreadTest extends OpMode {
                 movements++;
             }
             lastPosition = motor.getCurrentPosition();
+        }
+
+        void stop(){
+            motor.setPower(0);
         }
     }
 

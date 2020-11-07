@@ -6,11 +6,11 @@ import com.qualcomm.robotcore.util.Range;
 
 public class Drivetrain {
 
-    private final double WHEEL_CIRCUMFERENCE = 3 * Math.PI; //inches
-    private final double GEAR_RATIO = 26/22.0;
-    private final double TICKS_PER_REV = 383.6; //yellowjacket 435rpm, counts per rev of motor shaft
+    private final double WHEEL_CIRCUMFERENCE = 1.88976 * Math.PI; //48mm diameter omni to inches
+    private final double ODO_GEAR_RATIO = 40/60.0;
+    private final double ODO_TICKS_PER_REV = 8196;
 
-    private final double TICKS_PER_INCH;
+    private final double ODO_TICKS_PER_INCH;
 
     public DcMotor leftMotor, rightMotor;
     private double leftZero, rightZero = 0;
@@ -22,7 +22,7 @@ public class Drivetrain {
         leftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        TICKS_PER_INCH = TICKS_PER_REV * GEAR_RATIO / WHEEL_CIRCUMFERENCE;
+        ODO_TICKS_PER_INCH = ODO_TICKS_PER_REV * ODO_GEAR_RATIO / WHEEL_CIRCUMFERENCE;
     }
 
     public void setPowers(double leftPower, double rightPower) {
@@ -42,11 +42,11 @@ public class Drivetrain {
     }
 
     public double getLeftDistance(){
-        return (leftMotor.getCurrentPosition() - leftZero) / TICKS_PER_INCH;
+        return (leftMotor.getCurrentPosition() - leftZero) / ODO_TICKS_PER_INCH;
     }
 
     public double getRightDistance(){
-        return (rightMotor.getCurrentPosition() - rightZero) / TICKS_PER_INCH;
+        return (rightMotor.getCurrentPosition() - rightZero) / ODO_TICKS_PER_INCH;
     }
 
     public void resetEncoders(){

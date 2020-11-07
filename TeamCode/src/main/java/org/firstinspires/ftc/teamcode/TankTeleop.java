@@ -18,8 +18,11 @@ public class TankTeleop extends OpMode {
 
         telemetry.addData("left stick y", -gamepad1.left_stick_y);
         telemetry.addData("right stick y", -gamepad1.right_stick_y);
-        telemetry.addData("left inches", hardware.drivetrain.getLeftDistance());
-        telemetry.addData("right inches", hardware.drivetrain.getRightDistance());
+        telemetry.addData("left encoder", hardware.drivetrain.leftMotor.getCurrentPosition());
+        telemetry.addData("right encoder", hardware.drivetrain.rightMotor.getCurrentPosition());
+        telemetry.addData("left dist", hardware.drivetrain.getLeftDistance());
+        telemetry.addData("right dist", hardware.drivetrain.getRightDistance());
+
         telemetry.update();
     }
 }
