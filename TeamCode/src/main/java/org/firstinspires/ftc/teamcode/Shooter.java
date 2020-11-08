@@ -13,15 +13,16 @@ public class Shooter extends OpMode {
 
     DcMotorEx motor;
 
-    Tuner tuner = new Tuner(
-        new String[] {"speed"},
-        new double[] { -0.9  },
-        gamepad1,
-        telemetry
-    );
+    Tuner tuner;
 
     public void init() {
         motor = hardwareMap.get(DcMotorEx.class, "1-2");
+        tuner = new Tuner(
+                new String[] {"speed"},
+                new double[] { 0.35  },
+                gamepad1,
+                telemetry
+        );
     }
 
     public void loop() {
