@@ -60,9 +60,11 @@ public class Tuner{
 
 
         if (gamepad.left_trigger > 0.001){
+            incrementSpeed = 0.01 * gamepad.left_trigger;
             values[index] -= gamepad.left_trigger*incrementSpeed;
         }
         if (gamepad.right_trigger > 0.001){
+            incrementSpeed = 0.01 * gamepad.right_trigger;
             values[index] += gamepad.right_trigger*incrementSpeed;
         }
 

@@ -5,6 +5,8 @@ package org.firstinspires.ftc.teamcode.lib;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
+import java.util.ArrayList;
+
 
 public class Calculate {
 
@@ -155,35 +157,23 @@ public class Calculate {
             }
             error = this.target - this.currentValue;
 
-            if (Math.abs(error) < tolerance) {
-                I = 0;
-                inTolerance = true;
-            } else {
-                inTolerance = false;
-            }
+            inTolerance = Math.abs(error) < tolerance;
 
             vel = (lastError - error) / (System.currentTimeMillis() - lastTime);
-            if (Math.abs(vel) < velTolerance) {
-                inVelTolerance = true;
-            } else {
-                inVelTolerance = false;
-            }
+            inVelTolerance = Math.abs(vel) < velTolerance;
+
             lastTime = System.currentTimeMillis();
 
-            // if (Math.signum(lastError) != Math.signum(error)) { // "bounces" back after reaching target, braking
-            //     I = 0;
-            // }
+            if (Math.signum(lastError) != Math.signum(error)) {
+                I = 0;
+            }
 
             P = kP * error;
             I = I + (kI * error);
             D = kD * (lastError - error);
             F = kF * target;
 
-            if (Math.abs(P + I + F - D) < 0) {
-                power = 0;
-            } else {
-                power = P + I - D + F;
-            }
+            power = P + I - D + F;
 
             lastError = error;
             return power;
@@ -228,6 +218,23 @@ public class Calculate {
         public double[] getPID() {
             return new double[] { P, I, D, F };
         }
+    }
+
+    public static class LooptimeGetter{
+        ArrayList<Long> lasttimes = new ArrayList<Long>();
+
+        public LooptimeGetter(){
+            lasttimes.add(System.nanoTime());
+        }
+
+        void loop(){
+            lasttimes.add(System.nanoTime());
+            lasttimes.remove(0);
+        }
+        double getLooptime(){
+            return lasttimes.get(lasttimes.size() - 1) - lasttimes.get(lasttimes.size() - 2);
+        }
+
     }
 
 // RANDOM MATH
